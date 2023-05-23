@@ -34,13 +34,19 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['status']) || $_SESSION['st
 			<div class="bg-white shadow block">
 			<?php
 			if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-				$name = $_POST['name'];
-				$job_type = $_POST['job_type'];
-				$location = $_POST['location'];
-				$area = $_POST['area'];
-				$salary = $_POST['salary'];
-				$job_des = $_POST['job_des'];
-				$job_req = $_POST['job_req'];
+				$name = trim(htmlspecialchars(stripslashes($_POST['name'])));
+				$job_type = trim(htmlspecialchars(stripslashes($_POST['job_type'])));
+				$location = trim(htmlspecialchars(stripslashes($_POST['location'])));
+				$area = trim(htmlspecialchars(stripslashes($_POST['area'])));
+				$salary = trim(htmlspecialchars(stripslashes($_POST['salary'])));
+				$job_des = trim(htmlspecialchars(stripslashes($_POST['job_des'])));
+				$job_req = trim(htmlspecialchars(stripslashes($_POST['job_req'])));
+
+				// Check if any field is empty
+				if (empty($name) || empty($job_type) || empty($location) || empty($area) || empty($salary) || empty($job_des) || empty($job_req)) {
+					echo "Please fill in all the fields.";
+					exit();
+				}
 				
 				$mysqli = new mysqli($host, $user, $pwd, $sql_db);
 				if ($mysqli->connect_error) {
@@ -67,19 +73,19 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['status']) || $_SESSION['st
 					<table class="table table-bordered">
 					<tr> <td>
 					<label><strong>Job Title *</strong></label><br />
-					<input name="name" type="text" class="form-control" />
+					<input name="name" type="text" class="form-control" required/>
 					</td> <td>
 					<label><strong>Job Type *</strong></label><br />
-					<select name="job_type" class="form-control">
+					<select name="job_type" class="form-control" required>
 					<option value="">Select</option>
 					<option value="Casual">Casual</option>
 					<option value="Part-Time">Part-Time</option>
 					</select>
 					</td> </tr> <tr> <td colspan="2">
 					<label ><strong>Location *</strong></label><br />
-					<input name="location" type="text" class="form-control" />
+					<input name="location" type="text" class="form-control" required/>
 					<label><strong>Area *</strong></label><br />
-					<select name="area" class="form-control">
+					<select name="area" class="form-control" required>
 					<option value="">Select</option>
 					<option value="Business">Business</option>
 					<option value="Design">Design</option>
@@ -94,11 +100,11 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['status']) || $_SESSION['st
 					<option value="Science">Science</option>
 					</select>
 					<label ><strong>Salary *</strong></label><br />
-					<input name="salary" type="text" class="form-control" />
+					<input name="salary" type="text" class="form-control" required/>
 					<label ><strong>Job Description *</strong></label><br />
-					<textarea name="job_des" class="form-control" id="job_des" rows="5"></textarea>
+					<textarea name="job_des" class="form-control" id="job_des" rows="5" required></textarea>
 					<label ><strong>Job Requirements *</strong></label><br />
-					<textarea name="job_req" class="form-control" id="job_req" rows="5"></textarea>
+					<textarea name="job_req" class="form-control" id="job_req" rows="5" required></textarea>
 					</td> </tr> 
 					</table>
 					<div style="text-align:right"><button type="submit" class="btn btn-primary">Submit Job</button></div>

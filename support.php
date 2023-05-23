@@ -47,26 +47,35 @@ $_SESSION['prev_page'] = $_SERVER['REQUEST_URI'];
 							} 
 							?>
 							<?php
-                            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                                $qname = $_POST['name'];
-                                $email = $_POST['email'];
-                                $subject = $_POST['subject'];
-                                $message = $_POST['message'];
+							if ($_SERVER["REQUEST_METHOD"] == "POST") {
+								// Check if all fields are filled
+								if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['subject']) || empty($_POST['message'])) {
+									echo "All fields are required!";
+								} else {
+									$qname = trim(htmlspecialchars($_POST['name']));
+									$email = trim(htmlspecialchars($_POST['email']));
+									$subject = trim(htmlspecialchars($_POST['subject']));
+									$message = trim(htmlspecialchars($_POST['message']));
 
-                                $sql = "INSERT INTO question (qname, email, subject, message) VALUES (?, ?, ?, ?)";
-                                $stmt = $conn->prepare($sql);
-                                $stmt->bind_param("ssss", $qname, $email, $subject, $message);
+									if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+										echo "Invalid email format!";
+									} else {
+										$sql = "INSERT INTO question (qname, email, subject, message) VALUES (?, ?, ?, ?)";
+										$stmt = $conn->prepare($sql);
+										$stmt->bind_param("ssss", $qname, $email, $subject, $message);
 
-                                if ($stmt->execute()) {
-                                    echo "Successfully Send!";
-                                } else {
-                                    echo "Error: " . $sql . "<br>" . $conn->error;
-                                }
+										if ($stmt->execute()) {
+											echo "Successfully Send!";
+										} else {
+											echo "Error: " . $sql . "<br>" . $conn->error;
+										}
 
-                                $stmt->close();
-                                $conn->close();
-                            }
-                            ?>
+										$stmt->close();
+										$conn->close();
+									}
+								}
+							}
+							?>
 							<form method="POST" class="basic-form" name="contactForm" novalidate="">
 								<div class="row">
 									<div class="col-md-6">
