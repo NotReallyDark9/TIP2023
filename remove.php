@@ -1,10 +1,10 @@
-<?php 
+<?php
 session_start();
 if (!isset($_SESSION['user_id'])) {
     header('Location: login-index.php');
     exit();
 }
-?>
+include 'settings.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,57 +36,40 @@ if (!isset($_SESSION['user_id'])) {
 				</div>
 				<h3>Job Status</h3>
 				<table class="table table-bordered table-striped table-hover">
-                <thead>
-                  <tr>
-				  	<th >Job ID</th>
-                    <th >Job Title</th>
-					<th>Job Status</th>
-                    <th>Remove Application</th>
-                  </tr>
-                </thead>
                 <tbody>
-                <?php
-				$conn = @mysqli_connect($host,
-				$user,
-				$pwd,
-				$sql_db
-				);
+                <?php $conn = @mysqli_connect($host,
+                $user,
+                $pwd,
+                $sql_db
+                );
+                
                 $userId = $_SESSION['user_id'];
 
-                // Prepare the SQL query
-                $sql = "SELECT apply.applyID, jobs.jobID, jobs.name AS jobTitle, apply.job_status 
-                FROM apply 
-                INNER JOIN jobs ON apply.jobID=jobs.jobID
-                WHERE apply.memberID = ?";
-                
-                // Create a prepared statement
-                $stmt = $conn->prepare($sql);
-                
-                // Bind parameters
-                $stmt->bind_param('i', $userId);
-                
-                // Execute the statement
-                $stmt->execute();
-                
-                // Get the result
-                $result = $stmt->get_result();
-                
-                // Fetch the data and output it
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr>
-                        <td>{$row['jobID']}</td>
-                        <td>{$row['jobTitle']}</td>
-                        <td>{$row['job_status']}</td>
-                        <td>
-                            <form method='post' action='remove.php'>
-                                <input type='hidden' name='removeID' value='{$row["applyID"]}' />
-                                <input type='submit' name='remove' value='Remove'>
-                            </form>
-                        </td>
-                    </tr>";
+                if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove'])) {
+                    $removeId = $_POST['removeID'];
+
+                    // Prepare the SQL query
+                    $sql = "DELETE FROM apply WHERE applyID = ? AND memberID = ?";
+
+                    // Create a prepared statement
+                    $stmt = $conn->prepare($sql);
+
+                    // Bind parameters
+                    $stmt->bind_param('ii', $removeId, $userId);
+
+                    // Execute the query
+                    $stmt->execute();
+
+                    if($stmt->affected_rows > 0) {
+                        echo "Job application has been successfully removed!";
+                    } else {
+                        echo "Error occurred while removing job application.";
+                    }
                 }
-                $stmt->close();
-                ?>		
+
+                header('Location: check.php'); 
+                exit();
+                ?>
                 </tbody>
                </table>
              </div>			
