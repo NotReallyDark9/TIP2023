@@ -34,14 +34,34 @@ $jobid = $_POST['jobID'];
 				<?php
 				$jobid = $_POST['jobID'];
 				if (isset($_POST['submit'])) {
-					$fn = $_POST['fn'];
-					$ln = $_POST['ln'];
-					$email = $_POST['email'];
-					$website = $_POST['website'];
-					$startdate = date('Y-m-d', strtotime($_POST['startdate']));
-					$phone = $_POST['phone'];
-					$rcq = $_POST['rcq'];
-
+                    $fn = trim(htmlspecialchars(stripslashes($_POST['fn'])));
+                    $ln = trim(htmlspecialchars(stripslashes($_POST['ln'])));
+                    $email = trim(htmlspecialchars(stripslashes($_POST['email'])));
+                    $website = trim(htmlspecialchars(stripslashes($_POST['website'])));
+                    $startdate = trim(htmlspecialchars(stripslashes($_POST['startdate'])));
+                    $phone = trim(htmlspecialchars(stripslashes($_POST['phone'])));
+                    $rcq = trim(htmlspecialchars(stripslashes($_POST['rcq'])));
+                
+                    // Check if any field is empty and echo error message
+                    if (empty($fn)) {
+                        echo "Please enter your first name.<br />";
+                    }
+                    if (empty($ln)) {
+                        echo "Please enter your last name.<br />";
+                    }
+                    if (empty($email)) {
+                        echo "Please enter your email.<br />";
+                    }
+                    if (empty($startdate)) {
+                        echo "Please enter a start date.<br />";
+                    }
+                    if (empty($phone)) {
+                        echo "Please enter your phone number.<br />";
+                    }
+                    if (empty($rcq)) {
+                        echo "Please enter your Reference / Comments / Questions..<br />";
+                    }
+                    if (!empty($fn) && !empty($ln) && !empty($email) &&  !empty($startdate) && !empty($phone) && !empty($rcq)) {
                     // File handling
                     if (isset($_FILES['resume'])) {
                         if ($_FILES['resume']['error'] == 0) {
@@ -76,6 +96,8 @@ $jobid = $_POST['jobID'];
                     } else {
                         echo "There was an error submitting your application: " . $conn->error;
                     }
+                    $stmt->close();
+                }
                 }
                 ?>
                 </div>			
