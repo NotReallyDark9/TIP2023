@@ -14,6 +14,9 @@
 				if (isset($_SESSION['status'])) {
 				echo '<li class="list-inline-item"><a href="check.php" class="nav-link">Check</a></li>';
 				}
+				if (isset($_SESSION['status']) && $_SESSION['status'] == 'PStaff') {
+				echo '<li class="list-inline-item"><a href="message.php" class="nav-link">Message</a></li>';
+				}
 				?>		
 			</ul>
 		</div>
