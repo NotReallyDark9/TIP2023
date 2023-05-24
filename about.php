@@ -36,8 +36,8 @@ $_SESSION['prev_page'] = $_SERVER['REQUEST_URI'];
 				</div>
 				<div class="col-6">
 				<div class="welcome-text">
-					<h2>Welcome Sam,</h2>
-					<p>CorpU is a recently accredited university. Like most universities, they hire a large quantity of casual (a.k.a., “sessional”) staff to run classes, labs, and workshops each semester. These sessional staff are managed by permanent or long-term contract staff, who are responsible for finding, training, and scheduling qualified sessionals for the units (i.e., subjects) they run. Each sessional staff member can be engaged by one or multiple units, depending on their availability and expertise. Within each unit, up to 20 unique sessionals might be involved depending on the number of students enrolled.</p>
+					<h2>Welcome</h2>
+					<p>At CorpU, we pride ourselves on being a recently accredited university that provides high-quality education and innovative learning opportunities for our students. We employ a large team of dedicated and knowledgeable sessional staff members to run our classes, labs, and workshops each semester. These professionals bring diverse expertise and are managed by our committed permanent or long-term contract staff. Our mission is to ensure that we have qualified, well-trained sessional staff on hand for the various units we run. A sessional staff member can engage with one or multiple units, depending on their unique skills and availability. In each unit, up to 20 unique sessionals may be involved, depending on the number of students enrolled, ensuring individual attention and personalized support. We are proud to say that at CorpU, our staff is our strength.</p>
 				</div></div>
 			</div>
 			</div>			

@@ -150,7 +150,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['status']) || $_SESSION['st
 						echo "</tr>\n ";
 					}
 				} else {
-					echo "No jobs found";
+					echo "No Applicant Found";
 				}
 				$conn->close();
 				?>

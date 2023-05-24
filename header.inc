@@ -1,5 +1,5 @@
 <div class="container text-center px-4">
-	<h1><a href="index.html" class="text-white" style="text-decoration: none;">CorpU</a></h1>
+	<h1><a href="index.php" class="text-white" style="text-decoration: none;">CorpU</a></h1>
 	<div class="row nav-links">
 		<div class="col-8">
 			<ul class="header-links">
