@@ -27,5 +27,5 @@ These instructions will get you a copy of the project up and running on your loc
 - Download this file, extract it.
 - Copy that extracted folder to *C:\xampp\htdocs*
 - Open XAMPP Control Panel, start **Apache** and **MySQL**
-- Click **Admin** of **MySQL**, click **Import** and import *tip.sql* which located in folder **sql**
+- Click **Admin** of **MySQL**, create database name 'tip' then click **Import** and import *tip.sql* which located in folder **sql**
 - Click **Admin** of **Apache**, change the url to http://localhost/TIP2023-main/index.php
