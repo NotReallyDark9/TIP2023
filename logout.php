@@ -49,8 +49,7 @@ if ($conn->connect_error) {
             // Unset all of the session variables.
             $_SESSION = array();
             
-            // If it's desired to kill the session, also delete the session cookie.
-            //This will destroy the session,not just the session data!
+            //Destroy the session
             if (ini_get("session.use_cookies")) {
                 $params = session_get_cookie_params();
                 setcookie(session_name(), '', time() - 42000,
